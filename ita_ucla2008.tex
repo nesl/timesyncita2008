@@ -1,0 +1,133 @@
+\section{Impact of Clock Stability on Duty Cycling, Bandwidth, and Power Consumption}
+
+It is generally assumed that using a more stable clock will improve the duty
+cycling capabilities of an embedded system and saves bandwidth in time
+synchronization since less frequent resynchronizations are necessary. Dutta
+showed in \cite{dutta2007procrastination} that the lower bound of a clock with
+a stability of $\pm 50$ppm is a duty cycle of 0.01\% for a scheduled
+communication MAC protocol. But how much additional power and bandwidth could be saved by
+employing a more stable clock, considering that a more stable clock consumes
+more energy? 
+
+\subsection{Clock Stability and Duty Cycling}
+Let's compare two systems, $A$ and $B$. Both systems have the same sleep power
+consumption $P_S$ and active power consumption $P_A$.  Each node has a local
+clock source with stability $s_1$ and $s_2$ that consume $P_{C1}$ and $P_{C2}$
+respectively. Additionally, we assume that both platforms have the same duty
+cycle ratio between sleep ($T_S$) and active time ($T_A$). However, in order
+to communicate with their peers, both systems have to set a guard band that is
+proportional to their local clock source stability $T_{Gx} = 2 \cdot T_S \cdot
+s_x$, where $s_x$ is the system's local clock stability. This guard band
+allows the nodes to wake up ahead of time and thus start the synchronization
+process early to assure that both nodes are awake when the active time starts.
+
+Given these definitions, we can calculate the average power consumption of a
+system as
+\begin{equation}
+	P_X = \frac{T_S \cdot (P_S + P_{Cx}) + (T_{Gx} + T_A) \cdot (P_A + P_{Cx})}{T_S + T_A + T_{Gx}}.
+\end{equation}
+
+Let's now assume that $s_1 > s_2$ and thus $P_{C1} < P_{C2}$. In order for
+system $B$ to be more efficient than system $A$ we have to show that
+\begin{equation}
+	P_A > P_B,
+\end{equation}
+and thus
+\begin{eqnarray}
+	\lefteqn{\frac{T_S \cdot (P_S + P_{C1}) + (T_{G1} + T_A) \cdot (P_A + P_{C1})}{T_S + T_A + T_{G1}}  > } \nonumber \\
+	& & \frac{T_S \cdot (P_S + P_{C2}) + (T_{G2} + T_A) \cdot (P_A +
+	P_{C2})}{T_S + T_A + T_{G2}}.\label{eq:1}
+\end{eqnarray}
+
+We now assume that the clock of system $A$ is a cheap low frequency crystal as
+found in many embedded systems. These crystals consume very little power, and thus
+$P_{C1} \sim 0$. Using this assumption, Equation \ref{eq:1} can be simplified to
+\begin{equation}
+%	P_{C2} & < & \frac{T_S P_S + (T_{G1} + T_A) \cdot P_A}{T_S + T_A + T_{G1}}
+%	\nonumber \\
+%	& & - \frac{T_S P_S + (T_{G2} + T_A) \cdot P_A}{T_S + T_A + T_{G2}} \nonumber \\
+P_{C2} < \frac{2\cdot T_s^2\cdot(P_A-P_s)\cdot(s_1-s_2)}{(T_S\cdot(1+2s_1)+T_A)(T_S\cdot(1+2s_2)+T_A)},
+	\label{eq:2}
+\end{equation}
+where we replaced $T_{G1}$ and $T_{G2}$ with its respective definition. We can
+now observe that $DC=T_A/(T_A + T_S)$ is the duty cycle of the system, and if
+we assume that $s_1, s_2 << 1$, we get
+\begin{equation}
+	P_{C2} < 2 \cdot [1-DC]^2\cdot (P_A-P_S) \cdot (s_1-s_2).
+\end{equation}
+Further assuming that $DC << 1$, $P_S \rightarrow 0$, and $s_1 >> s_2$ we find that
+\begin{equation}
+	P_{C2} < 2 \cdot P_A \cdot s_1.
+\end{equation}
+
+This shows that in order for system $B$ to be more power efficient than system
+$A$, the clock system used in system $B$ has to use less power than the active
+power consumption multiplied by twice the precision of system $A$'s clock
+stability. For example, if we assume that $P_A=1W$, $s_1=50 ppm$, and $s_2=1
+ppm$ (in order to satisfy $s_1 >> s_2$) then $P_{C2} < 100 \mu W$. We
+currently don't know of a technology that can achieve a clock stability of
+$1ppm$ with a power budget of less than $100 \mu W$. The closest we could find
+on the current market is the MAXIM DS32BC35 \cite{maxim2008ds32b35} which is
+an RTC with integrated 32kHz TCXO, and consumes about 600mW for a stability of
+$\pm 3.5ppm$. However, we also ignored the fact that time synchronization
+protocols, such as FTSP \cite{maroti2004ftsp}, can estimate the current clock
+drift very accurately and thus, as long as the temperature doesn't change too
+quickly, can improve the duty cycling of an embedded system without using a
+higher stability clock source.
+
+
+\subsection{Bandwidth Benefits}
+
+It is trivial to see that a time synchronization protocol based on a less
+temperature stable clock needs to resynchronize more often, than one
+based on a more stable one. But how much is the difference? In the simplest
+case, which is also an upper bound, the time synchronization assumes the worst
+case drift $s_{\max}$ and calculates the necessary resynchronization time
+interval $T_r$ based on a required maximum time synchronization error
+$\epsilon$.
+
+\begin{equation}
+    T_r < \frac{\epsilon}{s_{\max}}.
+\end{equation}
+
+This is a very conservative estimate and doesn't include the fact that a time
+synchronization protocol can calculate the current clock drift. Additionally,
+if we have knowledge of how fast temperature changes in the environment where
+the system is, then a much better estimate of $T_r$ can be found. 
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[angle=-90,width=0.45\textwidth]{figures/mosscamresync}
+        \caption{Upper and lower bounds for the number of resynchronizations
+        necessary to achieve a given time synchronization error. The
+        temperature data comes from a 3 year dataset. XCT is a new
+        compensation technology described in \cite{schmid2008scxo}.}
+        \label{fig:resync}
+    \end{center}
+\end{figure}
+
+The question arises on what would be the optimal resynchronization interval in
+order to guarantee that the synchronization error is always smaller than
+$\epsilon$? Let's assume the system has access to an oracle that tells the
+system how big the synchronization error is, and let's assume that the system
+does not compensate for local clock drift. In this situation, it is clear that
+a system with a lower drift clock will clearly resynchronize less often, than
+one with a higher drift clock. Figure \ref{fig:resync} illustrates this by
+using a 3 year temperature dataset collected at the James Natural Wildlife Reserve
+\cite{mosscam} and calculating how often a system would have to resynchronize
+if it were using different clock technologies with the given temperatures.
+Looking at one specific example, we can calculate the bandwidth savings a
+better clock stability can achieve. Let's assume that the application needs a
+synchronization accuracy of 1ms. Over the 3 year period, an uncompensated
+clock would have to resynchronize about 900'000 times, whereas a compensated
+TCXO only 25'000 times. Now, assuming that each resynchronization consists of
+2 messages of 16 bytes each, this results in an average bandwidth of 
+2.35 bit/s for the uncompensated clock, and only 0.065 bit/s for a compensated
+clock.
+
+I need some conclusion here. Maybe something along the line of: If time
+synchronization estimates the current clock drift, we believe that similar numbers to the TCXO
+can be achieved with an uncompensated crystal. This shows
+that time synchronization can help in lowering the bandwidth requirements,
+without employing hardware drift compensation on the clock level.
+
