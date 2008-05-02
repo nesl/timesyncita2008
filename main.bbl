@@ -1,0 +1,30 @@
+\begin{thebibliography}{1}
+
+\bibitem{elson02finegrained}
+J.~Elson, L.~Girod, and D.~Estrin.
+\newblock Fine-grained network time synchronization using reference broadcasts,
+  2002.
+
+\bibitem{ganeriwal03timingsync}
+S.~Ganeriwal, R.~Kumar, and M.~Srivastava.
+\newblock Timingsync protocol for sensor networks, 2003.
+
+\bibitem{kusy05elapsed}
+B.~KUSY, P.~DUTTA, P.~LEWIS, M.~MAR, A.~EDECZI, and D.~CULLER.
+\newblock Elapsed time on arrival: A simple and versatile primitive for
+  canonical time synchronization services, 2005.
+
+\bibitem{wsn-timecali}
+Kay R{\"o}mer, Philipp Blum, and Lennart Meier.
+\newblock Time synchronization and calibration in wireless sensor networks.
+\newblock In Ivan Stojmenovic, editor, {\em Handbook of Sensor Networks:
+  Algorithms and Architectures}, pages 199--237. John Wiley and Sons, September
+  2005.
+
+\bibitem{timing-error}
+Qing Ye, Yuecheng Zhang, and Liang Cheng.
+\newblock A study on the optimal time synchronization accuracy in wireless
+  sensor networks.
+\newblock {\em Comput. Netw.}, 48(4):549--566, 2005.
+
+\end{thebibliography}
