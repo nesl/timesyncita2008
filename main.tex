@@ -1,13 +1,40 @@
-\documentclass[10pt,twocolumn]{main}
+%\documentclass[10pt,twocolumn]{main}
 %\documentclass[10pt,letterpaper]{article}
+\documentclass[conference]{IEEEtran}
+
+%next line allows \thanks in conference mode
+\IEEEoverridecommandlockouts
+
 \usepackage{pslatex}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{graphics}
-\usepackage{epsfig} % for postscript graphics files
+%\usepackage{graphics}
+%\usepackage{epsfig} % for postscript graphics files
+
+\usepackage{cite}
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.eps}
+\fi
 
 
-\title{{\bf Relationship Study between Time Synchronization Errors Quality of Information in Sensor Networks{\it placeholder title}}
+\begin{document}
+
+\title{On the Impact of Time Synchronization on Quality of Information and Network Performance
 \thanks{~~This work was supported by US-UK ITA Grant}}
 \author{{\sc xxx},{\sc yyy}\\
 \normalsize{\tt \{xxx,yyy\}@honeywell.com}\\
@@ -17,7 +44,6 @@
 \normalsize{\tt phone: 612 951 xxx $\quad$ 612 951 yyy}\\
 }
 
-\begin{document}
 \maketitle
 %\setcounter{page}{0}
 %\pagestyle{empty}
@@ -28,10 +54,12 @@
 \input{intro}
 %\input{intro}
 \input{background}
-\input{appQOI}                                                                          \input{Detector}
+\input{appQOI}
+\input{Detector}
 \input{TrackingFilter}
 %\input{adaptation_sim}
 %\input{adaptation-2}
+\input{ita_ucla2008}
 \bibliography{ref}
 \bibliographystyle{plain}
 
