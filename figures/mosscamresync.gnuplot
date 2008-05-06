@@ -15,7 +15,7 @@ set log xy
 #         "mosscamresync.dat" using 1:4 with lines lw 2 title "Lookup Table SCXO"
 plot "mosscamresync.dat" using 1:2 with lines lw 2 title "Uncompensated Lower",\
          "mosscamresync.dat" using 1:5 with lines lw 2 title "TCXO Lower",\
-         "mosscamresync.dat" using 1:4 with lines lw 2 title "XCT Lower",\
          1136*24*3600/(x/(100e-6)) with lines lw 2 title "Upper Bound",\
-         1136*24*3600/(x/(2e-6)) with lines lw 2 title "Upper Bound",\
-         1136*24*3600/(x/(2.4e-6)) with lines lw 2 title "Upper Bound"
+         1136*24*3600/(x/(2e-6)) with lines lw 2 title "Upper Bound"
+#         "mosscamresync.dat" using 1:4 with lines lw 2 title "XCT Lower",\
+#         1136*24*3600/(x/(2.4e-6)) with lines lw 2 title "Upper Bound"

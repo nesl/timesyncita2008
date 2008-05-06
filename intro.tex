@@ -9,30 +9,32 @@ Reference Broadcast Synchronization (RBS)
 ~\cite{elson02finegrained}, elapsed time \cite{kusy05elapsed}, etc.
 In general, the goal of a time synchronization mechanism is to
 devise a scheme that improves accuracy with lower energy
-consumption. Yet, there is clearly a trade off between accuracy and
-energy consumption. It would not be always desirable to deploy the
-most accurate time synchronization as it might drain the power. The
-choice of a time synchronization mechanism will depend on
-application's demand on timing accuracy as well as the energy
-budget. To estimate application's demand and select a proper time
-synchronization mechanism, the relationship between application's
+consumption. However, there is clearly a trade off between accuracy and
+energy consumption. It would not always be desirable to deploy the
+most accurate time synchronization as it might drain the batteries too fast. The
+choice of a time synchronization mechanism will depend on the
+application's demand on timing accuracy as well as the available energy
+budget. To estimate an application's demand and select a proper time
+synchronization mechanism, the relationship between application
 performance or QoI (Quality of Information) and time synchronization
 services are yet to be investigated. In this paper, we aim to
 formalize the relationship between the performance of applications
-and time synchronization services based on analytic frameworks using
+and time synchronization services based on an analytic framework using
 representative applications, namely, event detection and estimation.
 
 %what's the difference/contribution of our paper from existing survey papers on time sync?
 
-Moreover, time synchronization may play a key role in energy-saving
-requirement. For example, accurate time synchronization can improve
-the efficiency of duty-cycling and thus save energy.
-Even though our study implies that energy saving by improving duty
-cycling through better clock accuracy would not be significant with
-low-power sensor platforms (e.g., motes?). We will show the analysis
-with regard to energy saving in Section \ref{sec:power}.
+Time synchronization may play a key role in energy-saving requirements. For
+example, accurate time synchronization can improve the efficiency of
+duty-cycling and thus save energy. However, different clock sources consume
+different amounts of energy. In general, more temperature stable oscillators
+consume more energy. Our analysis of clock stability and duty cycling
+performance will show how much energy a duty-cycled system can gain by employing
+a higher stability clock, and vice-versa it shows the maximum energy such a
+clock system is allowed to use, in order not to offset the gained energy.
+Additionally, the local clock stability is tightly bound to the number of times
+a time synchronization service has to resynchronize with its peers. We will
+investigate upper and lower bounds on the number of resynchronization requests
+using a 3 year temperature data set and modeling crystal drifts.
 
-%The rest of the paper is organized as the follows. In Section \ref{},
-%we will first look at the application QoI impact related to the
-%timing errors. In section 3, we will present the relationship
-%between timing accuracy and duty cycling in terms of energy saving.
+
