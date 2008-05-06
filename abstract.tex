@@ -1,32 +1,30 @@
 \begin{abstract}
 
-Recent new hardware and technology enable low-power inexpensive distributed
-sensor networks. To realize certain applications such as real time event
-detection, target tracking and system monitoring, time synchronization is
-essential. In the literature, a book of time synchronization techniques have
-been proposed. In general, the goal of a time synchronization mechanism is to
-devise a scheme that improves accuracy with lower energy consumption. Yet,
-there is clearly a trade off between accuracy and energy consumption. It would
-not be always desirable to deploy the most accurate time synchronization as it
-might drain the batteries or clog the network with time synchronization
-messages. The choice of a time synchronization mechanism will depend on
-application's demand on timing accuracy as well as the energy budget. To
-estimate application's demand and select a proper time synchronization
-mechanism, the relationship between application's performance or QoI (Quality
-of Information) and time synchronization services are yet to be investigated.
-This paper formalizes the relationship between the performance of applications
-and time synchronization services based on analytic framework using
+New hardware and technologies enable low-power low-cost distributed
+sensing systems. To realize certain applications such as real-time event
+detection, target tracking, and system monitoring, time synchronization is
+essential. The goal of a time synchronization mechanism is to
+improve timing accuracy with low energy consumption. Upon closer inspection,
+however, one identifies a trade off between accuracy and energy consumption. Thus, it may 
+not always be desirable to deploy the most accurate time synchronization as it
+might either drain the batteries prematurely or clog the network with time synchronization
+messages. The choice of a time synchronization mechanism will depend on the
+application's requirement of timing accuracy as well as its energy budget. To
+select appropriate time synchronization
+parameters, the relationship between an application's performance or QoI (Quality
+of Information) and time synchronization services needs to be investigated.
+This paper formalizes this relationship based on an analytical framework using
 representative applications, namely, event detection and estimation. The
-analysis shows the impact of timing errors for different event duration, target
-moving speed, number of sensors, sampling frequencies, etc. The analysis
-framework can also be used to extract the maximum synchronization errors that
-each application can sustain to achieve the desired QoI.
+analysis shows the impact of timing errors for different event durations, target
+speeds, number of sensors, and sampling frequencies. The analysis
+framework can also be used to estimate the maximum synchronization error 
+each application can sustain while still achieving the desired QoI.
 
 Moreover, time synchronization plays a key role in energy-saving requirements.
-The intuitive assumption that using more temperature stable clocks will
+The intuitive assumption that using higher stability clocks will
 automatically improve duty cycling performance, and thus decrease power
 consumption, does not always hold true. In this article, we will present the
 link between clock stability, impact on duty cycling, and the possible bandwidth
-savings that can be made by using temperature compensated clocks or clock drift
+savings that can be achieved by using temperature compensated clocks or clock drift
 estimation techniques.
 \end{abstract}
