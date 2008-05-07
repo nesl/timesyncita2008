@@ -78,5 +78,30 @@ and the probability that it came from during the event is $1-p_{se,l}$. Without 
 \end{eqnarray}
 We can use these calculations in conjunction with the distributions in~\cite{timing-error} to obtain realistic detector performance.
 
+Figure \ref{fig:detection} shows the detection probability $E\langle
+f\rangle$ with time synchronization error bound of 1ms and 1s drawn
+in solid and dotted line respectively. Here, we assume that $p_i$ =
+0.9 and $q_i$ = 0.05 with 10 randomly deployed sensors. The event
+duration is 1 second for the analysis. In the figure, we can observe
+three important results. First, the impact of timing error on
+detection probability is significant. If the timing error is bounded
+within 1 second, the detection probability is considerably lowered
+compared to the case where timing error is bounded within 1ms. Thus,
+reasonable timing error bounds are mandatory for good QoI. Secondly,
+the application QoI is not linearly improved with sampling rate. It
+shows a tendency that the detection probability is slightly impaired
+with 2 $\sim$ 5 samples in the event duration period (0.5 $\sim$ 0.2
+sampling frequency with 1 second event duration). Lastly, opposite
+to our intuition that the detection probability would be improved as
+the sampling rate increases, the sampling rate or sampling frequency
+has minimal impact on detection application's QoI. Rather, the limit
+of timing error plays more critical role in terms of QoI.
 
+\begin{figure}
+    \begin{center}
 
+    \includegraphics[height=0.3\textheight,width=0.45\textwidth,bbllx=49,bblly=101,bburx=585,bbury=714]{figures/detectionfig}
+    \caption{Detection Probability with various sampling frequencies}
+        \label{fig:detection}
+    \end{center}
+\end{figure}
