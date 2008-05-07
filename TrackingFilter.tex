@@ -60,6 +60,42 @@ where $(x_i,y_i)$ is the location of the sensor that sends data at time $k$. If 
    &&-\mathbf{K}(k)\left(\mathbf{C}\left(\mathbf{x}(k)\right){\Sigma}(k)\mathbf{C}\left(\mathbf{x}(k)\right)^T\right.\nonumber\\
    &&\left.+\mathbf{R}_i(k)\right)\mathbf{K}(k)^T \label{eqn:FilterCovUpdate}
  \end{eqnarray}
+
+ \begin{figure}
+    \begin{center}
+
+    \includegraphics[height=0.45\textheight,width=0.45\textwidth,bbllx=38,bblly=254,bburx=510,bbury=605]{figures/estimationlow}
+    \caption{Target Tracking in a low mobility with timing errors. 10 sensors are randomly placed in 50x50 $m^2$ field. Each sensor reports the sample to the target every 5 seconds. The target moves with speed less than 10m/s}
+        \label{fig:estimation_low}
+    \end{center}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
+
+    \includegraphics[height=0.45\textheight,width=0.45\textwidth,bbllx=51,bblly=262,bburx=588,bbury=615]{figures/estimationhigh}
+    \caption{Target Tracking in a high mobility with timing errors. 10 sensors are randomly placed in 50x50 $m^2$ field. Each sensor reports the sample to the target every 5 seconds. The target moves with speed of 10 $\sim$ 20 m/s. }
+        \label{fig:estimation_high}
+    \end{center}
+\end{figure}
+
+The figures \ref{fig:estimation_low} and \ref{fig:estimation_high}
+demonstrate the performance of target tracking using the proposed
+filtering algorithm with or without timing errors. Each figure has
+three sub-figures. First, it shows the normalized error
+$sqrt{(x'-x_t)^2+(y'-y_t)^2}$ (where $x'$ is the estimated x
+location of the target, $x_t$ is the actual location x of the
+target) with time. The second graph shows the actual target's
+position in blue solid line and the estimated positions in (x,y)
+plane in red dotted line. The last diagram shows
+([$x'-x_t$,$y'-y_t$]). The results indicate that the filtering is
+robust with timing errors less than 1ms. Generally, the
+synchronization error through networked time synchronization
+mechanisms can achieve less than a few milliseconds error. With high
+mobility where target moves faster, the performance degradation with
+timing error becomes noticeable. Yet, our scheme is much more robust
+to timing errors compared to Least Squares mechanisms shown in
+Section \ref{sec:least_square}.
 \subsection{Motivation}
 The motivation for the above nonlinear hybrid filter was to obtain a filter with globally stable performance (rather than the local stability obtained for an extended Kalman filter), robustness to synchronization errors, inexpensive distributable computation (unlike, for example a particle filter), and the ability to handle uncertainty in sensor location directly. Robustness is accomplished through using a filter with a minimum number of parameters--all of which have a physical significance and do not have to be chosen for specific circumstances of installation of the sensor network. through study of the filter's structure, we see that it is instantaneously unobservable, indeed, the observability matrix for the pair $\left(\mathbf{C}\left(\mathbf{x}(k)\right),\mathbf{A}\right)$ is
 \begin{eqnarray}
@@ -82,8 +118,12 @@ The motivation for the above nonlinear hybrid filter was to obtain a filter with
 \end{eqnarray}
 with three non-zero eigenvalues $m_i^2+1$. The intuition for the working of this filter comes from Monte-Carlo methods for thresholding extreme phenomena, where there is short term divergence and long term convergence. We can be reasonably sure of being able to prove the convergence of this filter given that it's tracking error converges to zero in simulations over a wide range of sensor placement, number and tracking object speed. The tools envisioned for this are direct analysis of the sort that is performed for Kalman filters~\cite{SOLO,BOUGEROL}, Barrier certificates to show reliable performance~\cite{PRAJ,GLA}, or stochastic hybrid system tools.
 
-\subsection{Sensitivity to Synchronization Error of Batch Least Squares over the Network}
-This sensitivity analysis applies to least squares or any equivalent recursive method that attains the least squares solution. We perform the analysis for a constant velocity model of the tracked object simply for the purpose of illustration. Suppose that the cartesian coordinates of a moving object are given the equations
+\subsection{Sensitivity to Synchronization Error of Batch Least Squares over the Network}\label{sec:least_square}
+This sensitivity analysis applies to least squares or any equivalent
+recursive method that attains the least squares solution. We perform
+the analysis for a constant velocity model of the tracked object
+simply for the purpose of illustration. Suppose that the cartesian
+coordinates of a moving object are given the equations
 \begin{eqnarray}
 x(k)&=&x_0+v_xkT\label{eqn:xconstvel}\\
 y(k)&=&y_0+v_ykT\label{eqn:xconstvel},
@@ -130,7 +170,7 @@ where $T$ is the sample period, $j...n$ are sensor labels, $(x_j,y_j)$ is a sens
                a_0 &
                a_1 &
                \hdots &
-               a_n 
+               a_n
              \end{pmatrix}\delta\mathbb{A'}
 \end{eqnarray}
 where $a_1,\ldots,a_n$ are the timing errors for the different sensors. For a least squares problem, the first order error in estimation of the unknown given the uncertainty in the regression matrix $\mathbb{A}$ is available from standard references~\cite{BJORK}:
@@ -141,4 +181,4 @@ where $\mathbf{r}=\mathbb{B}-\mathbb{A}\mathbf{X}$, and $\mathbb{A}^\dag=\left(\
 \begin{equation}
 \delta \mathbf{X}=-\bar{a}\left(\mathbb{A}^\dag\left(\delta\mathbb{A'}\mathbf{X}\right)-\left(\mathbb{A}^T\mathbb{A}\right)^{-1}\delta\mathbb{A'}^T\mathbf{r}\right),
 \end{equation}
- showing that the expected estimation error (assuming that the residual $\mathbf{r}$ is zero mean) is proportional to the product of the synchronization error and the estimate $\mathbf{X}$. Thus, faster object motion or more distant objects will increase the estimation error induced by synchronization error. 
+ showing that the expected estimation error (assuming that the residual $\mathbf{r}$ is zero mean) is proportional to the product of the synchronization error and the estimate $\mathbf{X}$. Thus, faster object motion or more distant objects will increase the estimation error induced by synchronization error.
