@@ -50,7 +50,7 @@ We construct our filter using the above measurement. We make assumptions standar
 \begin{equation}\label{eqn:Rk}
     \mathbf{R}_i(k)=x_i^2\mathbf{R},
 \end{equation}
-where $(x_i,y_i)$ is the location of the sensor that sends data at time $k$. With all of these assumptions, the filter equations for the state estimate $\mathbf{\hat{x}}(k)$, the Kalman gain $\mathbf{K}(k)$, and the state covariance ${\Sigma}(k)$ can be written as:
+where $(x_i,y_i)$ is the location of the sensor that sends data at time $k$. If there is uncertainty in sensor positions, as when localization is being executed, the corresponding covariances can be added to the $\mathbf{R}_i(k)$. With all of these assumptions, the filter equations for the state estimate $\mathbf{\hat{x}}(k)$, the Kalman gain $\mathbf{K}(k)$, and the state covariance ${\Sigma}(k)$ can be written as:
  \begin{eqnarray}
  % \nonumber to remove numbering (before each equation)
    \mathbf{\hat{x}}(k+1) &=& \mathbf{A}\mathbf{\hat{x}}(k)+ \mathbf{K}(k)\left(y(k)-\mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{\hat{x}}(k)\right)\label{eqn:Kalman-likeFilter}\\
@@ -60,3 +60,25 @@ where $(x_i,y_i)$ is the location of the sensor that sends data at time $k$. Wit
    &&-\mathbf{K}(k)\left(\mathbf{C}\left(\mathbf{x}(k)\right){\Sigma}(k)\mathbf{C}\left(\mathbf{x}(k)\right)^T\right.\nonumber\\
    &&\left.+\mathbf{R}_i(k)\right)\mathbf{K}(k)^T \label{eqn:FilterCovUpdate}
  \end{eqnarray}
+\subsection{Motivation}
+The motivation for the above nonlinear hybrid filter was to obtain a filter with globally stable performance (rather than the local stability obtained for an extended Kalman filter), robustness to synchronization errors, inexpensive distributable computation (unlike, for example a particle filter), and the ability to handle uncertainty in sensor location directly. Robustness is accomplished through using a filter with a minimum number of parameters--all of which have a physical significance and do not have to be chosen for specific circumstances of installation of the sensor network. through study of the filter's structure, we see that it is instantaneously unobservable, indeed, the observability matrix for the pair $\left(\mathbf{C}\left(\mathbf{x}(k)\right),\mathbf{A}\right)$ is
+\begin{eqnarray}
+    \mathbb{O}&=&\left(\begin{array}{c}\mathbf{C}\left(\mathbf{x}(k)\right)\\
+    \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}\\
+    \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}^2\\
+    \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}^3\\
+    \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}^4\\ 
+    \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}^5\\
+    \end{array}\right)\label{eqn:obsvmatrix}\\
+    &=&\begin{pmatrix}
+         -m_i & 0 & 0 & 1 & 0 & 0 \\
+         0 & -m_i & 0 & 0 & 1 & 0 \\
+         0 & 0 & -m_i & 0 & 0 & 1 \\
+         0 & 0 & 0 & 0 & 0 & 0 \\
+         0 & 0 & 0 & 0 & 0 & 0 \\
+         0 & 0 & 0 & 0 & 0 & 0 \\
+       \end{pmatrix}
+    \left(\right)\label{eqn:obsveig},
+\end{eqnarray}
+with three non-zero eigenvalues $m_i^2+1$. The intuition for the working of this filter comes from Monte-Carlo methods for thresholding extreme phenomena, where there is short term divergence and long term convergence. We can be reasonably sure of being able to prove the convergence of this filter given that it's tracking error converges to zero in simulations over a wide range of sensor placement, number and tracking object speed. The tools envisioned for this are direct analysis of the sort that is performed for Kalman filters~\cite{SOLO,BOUGEROL}, Barrier certificates to show reliable performance~\cite{PRAJ,GLA}, or stochastic hybrid system tools.
+ 
