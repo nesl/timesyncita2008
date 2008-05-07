@@ -67,7 +67,7 @@ The motivation for the above nonlinear hybrid filter was to obtain a filter with
     \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}\\
     \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}^2\\
     \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}^3\\
-    \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}^4\\ 
+    \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}^4\\
     \mathbf{C}\left(\mathbf{x}(k)\right)\mathbf{A}^5\\
     \end{array}\right)\label{eqn:obsvmatrix}\\
     &=&\begin{pmatrix}
@@ -81,4 +81,64 @@ The motivation for the above nonlinear hybrid filter was to obtain a filter with
     \left(\right)\label{eqn:obsveig},
 \end{eqnarray}
 with three non-zero eigenvalues $m_i^2+1$. The intuition for the working of this filter comes from Monte-Carlo methods for thresholding extreme phenomena, where there is short term divergence and long term convergence. We can be reasonably sure of being able to prove the convergence of this filter given that it's tracking error converges to zero in simulations over a wide range of sensor placement, number and tracking object speed. The tools envisioned for this are direct analysis of the sort that is performed for Kalman filters~\cite{SOLO,BOUGEROL}, Barrier certificates to show reliable performance~\cite{PRAJ,GLA}, or stochastic hybrid system tools.
- 
+
+\subsection{Sensitivity to Synchronization Error of Batch Least Squares over the Network}
+This sensitivity analysis applies to least squares or any equivalent recursive method that attains the least squares solution. We perform the analysis for a constant velocity model of the tracked object simply for the purpose of illustration. Suppose that the cartesian coordinates of a moving object are given the equations
+\begin{eqnarray}
+x(k)&=&x_0+v_xkT\label{eqn:xconstvel}\\
+y(k)&=&y_0+v_ykT\label{eqn:xconstvel},
+\end{eqnarray}
+then we can construct an array of sequential measurements for the least squares estimation of object position and velocity, with the object of extracting $x_0, v_x, y_0$ and $v_y$. It would have the following form:
+\begin{eqnarray}
+\mathbb{A}\mathbf{X}&=&\mathbb{B}\label{eqn:batchls1}\\
+\mathbb{A}&=&\begin{pmatrix}
+               1 & kT & -m_{k,j} &-m_{k,j}kT  \\
+               1 & (k+p_1)T & -m_{k+p_1,l} & -m_{k,j}(k+p_1)T \\
+               \vdots & \vdots & \vdots & \vdots \\
+               1 & (k+p_n)T & -m_{k+p_n,n} & -m_{k+p_n,n}(k+p_n)T \\
+             \end{pmatrix}\nonumber\\
+\mathbb{B}&=&\begin{pmatrix}
+               y_j-m_{k,j}x_j \\
+               y_j-m_{k,j}x_j \\
+               \vdots \\
+               y_n-m_{k+p_n,j}x_n \\
+             \end{pmatrix}\nonumber\\
+\mathbf{X}&=&\begin{pmatrix}
+               y_0 & v_y & x_0 & v_x \\
+             \end{pmatrix}^T\nonumber,
+\end{eqnarray}
+where $T$ is the sample period, $j...n$ are sensor labels, $(x_j,y_j)$ is a sensor position on the plane, $m_{k,j}$ is the slope measurement from sensor $j$ at time $kT$, $k$ going from $k...k+p_n$. From the structure of this least squares problem, if we assume that there are no errors in sensor locations, the synchronization error comes additively into the matrix $\mathbb{A}$ as
+\begin{eqnarray}
+\mathbb{\delta A}&=&\begin{pmatrix}
+               0 & a_0 & 0 &-m_{k,j}a_0 \\
+               0 & a_1 & 0 & -m_{k,j}a_1 \\
+               \vdots & \vdots & \vdots & \vdots \\
+               0 & a_n & 0 & -m_{k+p_n,n}a_n \\
+             \end{pmatrix}\label{eqn:ALSError}\\
+&=&\begin{pmatrix}
+               a_0 \\
+               a_1 \\
+               \vdots \\
+               a_n \\
+             \end{pmatrix}^T\begin{pmatrix}
+               0 & 1 & 0 &-m_{k,j} \\
+               0 & 1 & 0 & -m_{k,j} \\
+               \vdots & \vdots & \vdots & \vdots \\
+               0 & 1 & 0 & -m_{k+p_n,n} \\
+             \end{pmatrix}\label{eqn:ALSError1}\\
+&=&\begin{pmatrix}
+               a_0 &
+               a_1 &
+               \hdots &
+               a_n 
+             \end{pmatrix}\delta\mathbb{A'}
+\end{eqnarray}
+where $a_1,\ldots,a_n$ are the timing errors for the different sensors. For a least squares problem, the first order error in estimation of the unknown given the uncertainty in the regression matrix $\mathbb{A}$ is available from standard references~\cite{BJORK}:
+\begin{equation}
+\delta \mathbf{X}=\mathbb{A}^\dag\left(\delta \mathbb{B}-\delta\mathbb{A}\mathbf{X}\right)+\left(\mathbb{A}^T\mathbb{A}\right)^{-1}\delta\mathbb{A}^T\mathbf{r},
+\end{equation}
+where $\mathbf{r}=\mathbb{B}-\mathbb{A}\mathbf{X}$, and $\mathbb{A}^\dag=\left(\mathbb{A}^T\mathbb{A}\right)^{-1}\mathbb{A}^T$ is the More-Penrose inverse of $\mathbb{A}$. If we assume a mean synchronization error of $\bar{a}$ for all of the sensors, we have an estimation error that is directly proportional to it, in the form:
+\begin{equation}
+\delta \mathbf{X}=-\bar{a}\left(\mathbb{A}^\dag\left(\delta\mathbb{A'}\mathbf{X}\right)-\left(\mathbb{A}^T\mathbb{A}\right)^{-1}\delta\mathbb{A'}^T\mathbf{r}\right),
+\end{equation}
+ showing that the expected estimation error (assuming that the residual $\mathbf{r}$ is zero mean) is proportional to the product of the synchronization error and the estimate $\mathbf{X}$. Thus, faster object motion or more distant objects will increase the estimation error induced by synchronization error. 
