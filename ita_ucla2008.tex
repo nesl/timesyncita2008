@@ -106,8 +106,8 @@ $\epsilon$
 
 This is a very conservative estimate and doesn't include the fact that a time
 synchronization protocol can calculate the current clock drift. Additionally,
-if we have knowledge of how fast temperature changes in the environment where
-the system is located, then a much better estimate of $T_r$ can be found. 
+if we have knowledge of how fast temperature changes in the environment and
+how it affects the system clock, a much better estimate of $T_r$ can be found. 
 
 \begin{figure}
     \begin{center}
@@ -119,22 +119,22 @@ the system is located, then a much better estimate of $T_r$ can be found.
     \end{center}
 \end{figure}
 
-The question arises on what would be the optimal resynchronization interval
-while still guaranteeing that the synchronization error is smaller than
-$\epsilon$? Assuming the system has access to an oracle that tells the system
+The question that arises is what would the optimal resynchronization interval be
+that guarantees that synchronization error is bounded by
+$\epsilon$? Assuming the system has access to an oracle that issues
 the current synchronization error, and that the system does not compensate for
 local clock drift, it is clear that a system with a lower drift clock will
 resynchronize less often than one with a higher drift. Figure \ref{fig:resync}
 illustrates this by using a 3 year temperature dataset collected at the James
 Natural Wildlife Reserve \cite{mosscam}. It shows the upper and lower bounds
 by calculating how often a system would have to resynchronize experiencing the
-temperature changes recorded in the dataset. Looking at one specific example,
+temperature changes recorded in the dataset. Looking at a specific example,
 we can calculate the bandwidth savings a better clock stability can achieve.
 Let's assume that the application needs a synchronization accuracy of
 $\epsilon<1ms$. Over the 3 year period, an uncompensated clock would have to
-resynchronize at least 900'000 times using the oracle, whereas a compensated
+resynchronize at least 900'000 times, whereas a compensated
 TCXO only 25'000 times. Now, assuming that each resynchronization consists of
-2 messages of 16 bytes each results in an average bandwidth of 2.35 bit/s for
+2 messages of 16 bytes each, results in an average bandwidth of 2.35 bit/s for
 the uncompensated clock, and only 0.065 bit/s for a compensated clock.
 
 Even though this shows that a compensated clock can lower the number of
