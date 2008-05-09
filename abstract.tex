@@ -3,28 +3,14 @@
 New hardware and technologies enable low-power low-cost distributed
 sensing systems. To realize certain applications such as real-time event
 detection, target tracking, and system monitoring, time synchronization is
-essential. The goal of a time synchronization mechanism is to
-improve timing accuracy with low energy consumption. Upon closer inspection,
-however, one identifies a trade off between accuracy and energy consumption. Thus, it may 
-not always be desirable to deploy the most accurate time synchronization as it
-might either drain the batteries prematurely or clog the network with time synchronization
-messages. The choice of a time synchronization mechanism will depend on the
-application's requirement of timing accuracy as well as its energy budget. To
-select appropriate time synchronization
-parameters, the relationship between an application's performance or QoI (Quality
-of Information) and time synchronization services needs to be investigated.
-This paper formalizes this relationship based on an analytical framework using
-representative applications, namely, event detection and estimation. The
-analysis shows the impact of timing errors for different event durations, target
-speeds, number of sensors, and sampling frequencies. The analysis
-framework can also be used to estimate the maximum synchronization error 
-each application can sustain while still achieving the desired QoI.
-
-Moreover, time synchronization plays a key role in energy-saving requirements.
-The intuitive assumption that using higher stability clocks will
+essential. However, time synchronization both consumes limited battery power on the network nodes and can clog the bandwidth of the network. The choice of a time synchronization mechanism will depend on the
+application's requirement of timing accuracy as well as its energy budget. We derive the effect of time synchronization accuracy upon real time estimation and detection problems. We also quantify the costs and benefits of time synchronization algorithms. The intuitive assumption that using higher stability clocks will
 automatically improve duty cycling performance, and thus decrease power
-consumption, does not always hold true. In this article, we will present the
+consumption, does not always hold true. In this article, we present the
 link between clock stability, impact on duty cycling, and the possible bandwidth
 savings that can be achieved by using temperature compensated clocks or clock drift
-estimation techniques.
+estimation techniques. This paper formalizes this relationship based on an analytical framework using representative applications, namely, event detection and estimation. The analysis shows the impact of timing errors for different event durations, target
+speeds, number of sensors, and sampling frequencies. The analysis
+framework can also be used to estimate the maximum synchronization error
+each application can sustain while still achieving the desired Quality of Information (QoI).  
 \end{abstract}
