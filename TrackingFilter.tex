@@ -115,7 +115,7 @@ The motivation for the above nonlinear hybrid filter was to obtain a filter with
          0 & 0 & 0 & 0 & 0 & 0 \\
          0 & 0 & 0 & 0 & 0 & 0 \\
        \end{pmatrix}
-    \left(\right)\label{eqn:obsveig},
+    \label{eqn:obsveig},
 \end{eqnarray}
 with three non-zero eigenvalues $m_i^2+1$. The intuition for the working of this filter comes from Monte-Carlo methods for thresholding extreme phenomena, where there is short term divergence and long term convergence. We can be reasonably sure of being able to prove the convergence of this filter given that it's tracking error converges to zero in simulations over a wide range of sensor placement, number and tracking object speed. The tools envisioned for this are direct analysis of the sort that is performed for Kalman filters~\cite{SOLO,BOUGEROL}, Barrier certificates to show reliable performance~\cite{PRAJ,GLA}, or stochastic hybrid system tools.
 
