@@ -2,33 +2,33 @@
 \label{sec:power}
 
 It is generally assumed that using a more stable clock will improve the duty
-cycling capabilities of an embedded system and saves bandwidth in time
-synchronization since less frequent resynchronizations are necessary. Dutta
+cycling capabilities of an embedded system and save bandwidth since less 
+frequent resynchronizations are necessary. Dutta
 showed in \cite{dutta2007procrastination} that the lower bound of a clock with
 a stability of $\pm 50$ppm is a duty cycle of 0.01\% for a scheduled
-communication MAC protocol. But how much additional power and bandwidth could be saved by
+communication MAC protocol. But, how much additional power and bandwidth could be saved by
 employing a more stable clock, considering that a more stable clock consumes
-more energy? 
+more power? 
 
 \subsection{Clock Stability and Duty Cycling}
-Let's compare two systems, $A$ and $B$. Both systems have the same sleep power
+Let us compare two systems, $A$ and $B$. Both systems have the same sleep power
 consumption $P_S$ and active power consumption $P_A$.  Each node has a local
-clock source with stability $s_1$ and $s_2$ that consume $P_{C1}$ and $P_{C2}$
+clock source with stability $s_1$ and $s_2$ (in $Hz/Hz$) that consume power $P_{C1}$ and $P_{C2}$,
 respectively. Additionally, we assume that both platforms have the same duty
-cycle ratio between sleep ($T_S$) and active time ($T_A$). However, in order
-to communicate with their peers, both systems have to set a guard band that is
-proportional to their local clock source stability $T_{Gx} = 2 \cdot T_S \cdot
-s_x$, where $s_x$ is the system's local clock stability. This guard band
-allows the nodes to wake up ahead of time and thus start the synchronization
-process early to assure that both nodes are awake when the active time starts.
+cycle ratio $DC$ between sleep ($T_S$) and active time ($T_A$). However, in order
+to communicate with their peers, both systems include a guard time that is
+proportional to their local clock source's stability $T_{Gx} = 2 \cdot T_S \cdot
+s_x$, where $s_x$ is the system's local clock stability. This guard time
+allows the nodes to compensate for the drift in their clock while asleep by starting the synchronization
+process early enough to ensure that both nodes are awake when the active period starts.
 
-Given these definitions, we can calculate the average power consumption of a
-system as
+Given these definitions, we can calculate the average power consumption of the
+system and its clock in the sleep, active and guard periods as follows:
 \begin{equation}
-	P_X = \frac{T_S \cdot (P_S + P_{Cx}) + (T_{Gx} + T_A) \cdot (P_A + P_{Cx})}{T_S + T_A + T_{Gx}}.
+	P_x = \frac{T_S \cdot (P_S + P_{Cx}) + (T_{Gx} + T_A) \cdot (P_A + P_{Cx})}{T_S + T_A + T_{Gx}}.
 \end{equation}
 
-Let's now assume that $s_1 > s_2$ and thus $P_{C1} < P_{C2}$. In order for
+Where $x$ is either $A$ or $B$. Assume that $s_1 > s_2$ and thus $P_{C1} < P_{C2}$. In order for
 system $B$ to be more efficient than system $A$ we have to show that
 \begin{equation}
 	P_A > P_B,
