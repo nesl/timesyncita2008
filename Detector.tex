@@ -76,26 +76,29 @@ and the probability that it came from during the event is $1-p_{se,l}$. Without 
   E\langle d_i \rangle&=& {1\over M}\sum_{l=1}^M p_i(1-p_{se,l})+q_ip_{se,l}\nonumber\\
   &=& p_i\left( {M+1 \over 2L}\right)+q_i\left(1- {M+1 \over 2L}\right)\label{eqn:heterog_detector_mean}
 \end{eqnarray}
-We can use these calculations in conjunction with the distributions in~\cite{timing-error} to obtain realistic detector performance.
+We can use these calculations in conjunction with the distributions
+in~\cite{timing-error} to obtain realistic detector performance
+shown in Section \ref{sec:tighter_analysis}.
 
 Figure \ref{fig:detection} shows the detection probability $E\langle
 f\rangle$ with time synchronization error bound of 1ms and 1s drawn
 in solid and dotted line respectively. Here, we assume that $p_i$ =
 0.9 and $q_i$ = 0.05 with 10 randomly deployed sensors. The event
 duration is 1 second for the analysis. In the figure, we can observe
-three important results. First, the impact of timing error on
+two important results. First, the impact of timing error on
 detection probability is significant. If the timing error is bounded
 within 1 second, the detection probability is considerably lowered
 compared to the case where timing error is bounded within 1ms. Thus,
-reasonable timing error bounds are mandatory for good QoI. Secondly,
-the application QoI is not linearly improved with sampling rate. It
-shows a tendency that the detection probability is slightly impaired
-with 2 $\sim$ 5 samples in the event duration period (0.5 $\sim$ 0.2
-sampling frequency with 1 second event duration). Lastly, opposite
-to our intuition that the detection probability would be improved as
-the sampling rate increases, the sampling rate or sampling frequency
-has minimal impact on detection application's QoI. Rather, the limit
-of timing error plays more critical role in terms of QoI.
+reasonable timing error bounds are mandatory to achieve a good QoI.
+Secondly, the application QoI is not linearly improved with sampling
+rate. It shows a tendency that the detection probability is slightly
+impaired with 2 $\sim$ 5 samples in the event duration period (0.5
+$\sim$ 0.2 sampling frequency with 1 second event duration).
+Opposite to our intuition that the detection probability would be
+improved as the sampling rate increases, the sampling rate or
+sampling frequency has minimal impact on detection application's
+QoI. Rather, the limit of timing error plays more critical role in
+terms of QoI.
 
 \begin{figure}
     \begin{center}
@@ -105,9 +108,20 @@ of timing error plays more critical role in terms of QoI.
         \label{fig:detection}
     \end{center}
 \end{figure}
-\subsection{Dependence of Detection upon Synchronization Error: A More Precise Analysis}
-The preceding analysis of the dependence of detection accuracy on synchronization error assumes there is no actual synchronization process going on--that the sensors are just left unsynchronized and the clocks drift from each other within a certain bound. This gives conservative results compared to a scheme where there is some synchronization and the error distribution is not uniform but rather, bell shaped. 
-There are two reasons for this--when no time stamps are passed around, measurements that arrive can be simply be taken to be from the past. But when there is a synchronization algorithm that is attempting to synchronize all the clocks, we get measurements with time stamps and we have to concern ourselves with the error in the time stamp to determine detector performance.
+\subsection{Dependence of Detection upon Synchronization Error: A More Precise
+Analysis}\label{sec:tighter_analysis} The preceding analysis of the
+dependence of detection accuracy on synchronization error assumes
+there is no actual synchronization process going on--that the
+sensors are just left unsynchronized and the clocks drift from each
+other within a certain bound. This gives conservative results
+compared to a scheme where there is some synchronization and the
+error distribution is not uniform but rather, bell shaped. There are
+two reasons for this--when no time stamps are passed around,
+measurements that arrive can be simply be taken to be from the past.
+But when there is a synchronization algorithm that is attempting to
+synchronize all the clocks, we get measurements with time stamps and
+we have to concern ourselves with the error in the time stamp to
+determine detector performance.
 
 A distribution of the time error between two networked nodes, combining process delay, access delay, propagation delay, and receive delay is developed in~\cite{timing-error}. Assuming a uniform distribution of this error, they show that a maximum absolute error of $b>0$ in the time error results in a maximum synchronization error of $3b$ and a probability distribution of synchronization error over the interval $[-3b, 3b]$ as follows:
 \begin{equation}\label{eqn:syncerrordist}
@@ -157,11 +171,10 @@ p_{in,i}^p&=&\nonumber\\
     c_{[-3b, -2b],-3b}+c_{[-2b,-b],-2b}+c_{[-b,0],-b}, &-t_i<-3b
     \end{array} \right.\label{eqn:pinlongp}
 \end{eqnarray}
-We now have $p_{in,i}=p_{in,i}^p+p_{in,i}^f$ as the sum of the past and future components. We can now use the $p_{in,i}$ and $p_{out,1}=1-p_{in,i}$ to calculate the expected value of our detection function from~\ref{eqn:detector}: 
+We now have $p_{in,i}=p_{in,i}^p+p_{in,i}^f$ as the sum of the past and future components. We can now use the $p_{in,i}$ and $p_{out,1}=1-p_{in,i}$ to calculate the expected value of our detection function from~\ref{eqn:detector}:
 \begin{eqnarray}
 % \nonumber to remove numbering (before each equation)
   E\langle f\rangle &=& {1\over N}\sum_{i=1}^N E\langle d_i \rangle\nonumber\\
   E\langle d_i \rangle&=& {1\over M}\sum_{l=1}^M p_ip_{in,l}+q_i(1-p_{in,l})\label{eqn:expdetectorsyncalg}
 \end{eqnarray}
 The above expression would help set realistic thresholds for our detector based upon the performance of the synchronization algorithm in the network. The effect of synchronization is significant only if the temporal separation between events is comparable to the sum of event duration $\tau$ and maximum synchronization error $3b$. If events are isolated occurrences, correlations constructed between the sensors will yield event timing. However, if we want to go further and localize an event, or estimate any of its parameters in real time, time synchronization again becomes important.
- 
