@@ -96,6 +96,7 @@ mobility where target moves faster, the performance degradation with
 timing error becomes noticeable. Yet, our scheme is much more robust
 to timing errors compared to Least Squares mechanisms shown in
 Section \ref{sec:least_square}.
+
 \subsection{Motivation}
 The motivation for the above nonlinear hybrid filter was to obtain a filter with globally stable performance (rather than the local stability obtained for an extended Kalman filter), robustness to synchronization errors, inexpensive distributable computation (unlike, for example a particle filter), and the ability to handle uncertainty in sensor location directly. Robustness is accomplished through using a filter with a minimum number of parameters--all of which have a physical significance and do not have to be chosen for specific circumstances of installation of the sensor network. through study of the filter's structure, we see that it is instantaneously unobservable, indeed, the observability matrix for the pair $\left(\mathbf{C}\left(\mathbf{x}(k)\right),\mathbf{A}\right)$ is
 \begin{eqnarray}
