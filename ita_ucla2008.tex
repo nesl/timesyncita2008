@@ -1,4 +1,5 @@
-\section{Impact of Clock Stability on Duty Cycling, Bandwidth, and Power Consumption}
+\section{Cost-Benefit Analysis of Clock Stability and Synchronization 
+on Duty Cycling, Bandwidth, and Power Consumption}
 \label{sec:power}
 
 It is generally assumed that using a more stable clock will improve the duty
@@ -8,7 +9,12 @@ showed in \cite{dutta2007procrastination} that the lower bound of a clock with
 a stability of $\pm 50$ppm is a duty cycle of 0.01\% for a scheduled
 communication MAC protocol. But, how much additional power and bandwidth could be saved by
 employing a more stable clock, considering that a more stable clock consumes
-more power? 
+more power? The bounds on synchronization error derived in this section along 
+with the constraints on power consumption are for use in designing the applications 
+on the network, such as the detector of~\ref{sec:detector}, which uses a maximum 
+synchronization error as an input parameter: $t_s$ for the case without 
+synchronization, and $b$ for the case with synchronization algorithms.
+
 
 \subsection{Clock Stability and Duty Cycling}
 Let us compare two systems, $A$ and $B$. Both systems have the same sleep power
