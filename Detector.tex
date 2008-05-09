@@ -125,31 +125,38 @@ The question we answer with this probability distribution is--what is the probab
 \begin{equation}
 p_{in,i}=\int_{-t_i}^{\tau-t_i}f_s^b(t)dt\label{eqn:pin} .
 \end{equation}
-To write the expression for $p_{in,i}$ in a compact form, we use the notation for the characteristic function $\chi(C)$ of a set, which is unity when the condition $C$ is satisfied and zero otherwise. We first create the notation needed for the integrals of the the probability distribution over the different intervals--we denote them in terms of the interval of integration and the time to which the integration is performed $c_{[a b],t}$denotes the integral of the pdf within the interval to the point $t$.
+To write the expression for $p_{in,i}$ in a compact form, we first create the notation needed for the integrals of the the probability distribution over the different intervals--we denote them in terms of the interval of integration and the time to which the integration is performed $c_{[a b],t}$denotes the integral of the pdf within the interval to the point $t$.
 \begin{eqnarray}
 % \nonumber to remove numbering (before each equation)
-c_{[2b, 3b],t} &=&      {9 \over 8 b}(t-2b)-{9 \over 16 b^2}(t^2-4b^2)+{1\over8 b^3}(t^3-8b^3)-{1\over 96b^4}(t^4-16b^4)\label{eqn:cdfcomp}\\
-c_{[b,2b],t} &=&      {11\over 24b}(t-b)-{1\over 16b^2}(t^2-b^2)-{1\over 24b^3}(t^3-b^3)+{1\over 96b^4}(t^4-b^4)\nonumber\\
-c_{[0,b],t} &=& {5\over 12b}t-{1\over 12b^3}t^3+{1\over 48 b^4}(t^4)\nonumber \\
-c_{[-b,0],t} &=& {5\over 12b}(-t)-{1\over 12b^3}(-t^3)+{1\over 48 b^4}(-t^4)\nonumber \\
-c_{[-2b,-b],t} &=&      {11\over 24b}(-b-t)+{1\over 16b^2}(b^2-t^2)-{1\over 24b^3}(-b^3-t^3)-{1\over 96b^4}(b^4-t^4)\nonumber\\
-c_{[-3b, -2b],t} &=&      {9 \over 8 b}(-2b-t)+{9 \over 16 b^2}(4b^2-t^2)+{1\over8 b^3}(-8b^3-t^3)+{1\over 96b^4}(16b^4-t^4)\nonumber,
+c_{[2b, 3b],t} &=&      {9 \over 8 b}(t-2b)-{9 \over 16 b^2}(t^2-4b^2)\nonumber\\
+&&+{1\over8 b^3}(t^3-8b^3)-{1\over 96b^4}(t^4-16b^4)\label{eqn:cdfcomp}\\
+c_{[b,2b],t} &=&      {11\over 24b}(t-b)-{1\over 16b^2}(t^2-b^2)\nonumber\\
+&&-{1\over 24b^3}(t^3-b^3)+{1\over 96b^4}(t^4-b^4)\nonumber\\
+c_{[0,b],t} &=& {5\over 12b}t-{1\over 12b^3}t^3\nonumber\\
+&&+{1\over 48 b^4}(t^4)\nonumber \\
+c_{[-b,0],t} &=& {5\over 12b}(-t)-{1\over 12b^3}(-t^3)\nonumber\\
+&&+{1\over 48 b^4}(-t^4)\nonumber \\
+c_{[-2b,-b],t} &=&      {11\over 24b}(-b-t)+{1\over 16b^2}(b^2-t^2)\nonumber\\
+&&-{1\over 24b^3}(-b^3-t^3)-{1\over 96b^4}(b^4-t^4)\nonumber\\
+c_{[-3b, -2b],t} &=&      {9 \over 8 b}(-2b-t)+{9 \over 16 b^2}(4b^2-t^2)\nonumber\\
+&&+{1\over8 b^3}(-8b^3-t^3)+{1\over 96b^4}(16b^4-t^4)\nonumber,
 \end{eqnarray}
 We calculate the probabilities in two parts--integrating over the time ahead of the current time stamp and integrating over the time before the current time stamp to obtain $p_{in,i}^p$ and $p_{in,i}^f$ respectively:
 \begin{eqnarray}
-    p_{in,i}^f&=&\left\{\begin{array}{lr}
-    c_{[2b,3b],3b}+c_{[b,2b],2b}+c{[0,b],b}, & \tau-t_i>3b
-    c_{[2b,3b],\tau-t_i}+c_{[b,2b],2b}+c{[0,b],b}, & 2b<\tau-t_i<3b\\
-    c_{[b,2b],\tau-t_i}+c{[0,b],b}, & b<\tau-t_i<2b\\
-    c{[0,b],\tau-t_i}, & 0<\tau-t_i<b
+p_{in,i}^f&=&\left\{\begin{array}{lr}
+    c_{[2b,3b],3b}+c_{[b,2b],2b}+c_{[0,b],b}, & \tau-t_i>3b\\
+    c_{[2b,3b],\tau-t_i}+c_{[b,2b],2b}+c_{[0,b],b}, & 2b<\tau-t_i<3b\\
+    c_{[b,2b],\tau-t_i}+c_{[0,b],b}, & b<\tau-t_i<2b\\
+    c_{[0,b],\tau-t_i}, & 0<\tau-t_i<b
     \end{array} \right.\label{eqn:pinlongf}\\
-p_{in,i}^p&=&\left\{\begin{array}{lr}
+p_{in,i}^p&=&\nonumber\\
+&&\hspace{-0.4in}\left\{\begin{array}{ll}
     c_{[-b,0],-t_i}, & -b<-t_i<0\\
     c_{[-2b,-b],-t_i}+c_{[-b,0],-b}, & -2b<-t_i<-b\\
     c_{[-3b, -2b],-t_i}+c_{[-2b,-b],-2b}+c_{[-b,0],-b}, & -3b<-t_i<-2b\\
     c_{[-3b, -2b],-3b}+c_{[-2b,-b],-2b}+c_{[-b,0],-b}, &-t_i<-3b
     \end{array} \right.\label{eqn:pinlongp}
-\end{equation}
+\end{eqnarray}
 We now have $p_{in,i}=p_{in,i}^p+p_{in,i}^f$ as the sum of the past and future components. We can now use the $p_{in,i}$ and $p_{out,1}=1-p_{in,i}$ to calculate the expected value of our detection function from~\ref{eqn:detector}: 
 \begin{eqnarray}
 % \nonumber to remove numbering (before each equation)
