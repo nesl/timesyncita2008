@@ -25,14 +25,15 @@ the active period starts. The guard time is set by the resynchronization period,
  in this case, is the sleep period since we assume nodes will resynchronize when 
 they are awake.
 
-Given these definitions, we can calculate the average power consumption of the
+Given these definitions, we can compute the overall power consumption of the
 system and its clock in the sleep, active and guard periods as follows:
 \begin{equation}
 	P_X = \frac{T_s \cdot (P_s + P_{cX}) + (T_{gX} + T_a) \cdot (P_a + P_{cX})}{T_s + T_s + T_{gX}}.
 \end{equation}
 
-Where $X$ is either $A$ or $B$. Let us also assume that $s_A > s_B$ and $P_{cA} < P_{cB}$. In order for
-system $B$ to be more efficient than system $A$ we have to show that
+Where $X$ is either $A$ or $B$. Let us also assume that $s_A > s_B$ and, without loss 
+of generality, that $P_{cA} < P_{cB}$. In order for system $B$ to be more efficient 
+than system $A$ we have to show that
 \begin{equation}
 	P_A > P_B,
 \end{equation}
@@ -53,9 +54,10 @@ $P_{cA} \sim 0$. Using this assumption, Equation \ref{eq:1} can be simplified to
 P_{cB} < \frac{2\cdot T_s^2\cdot(P_a-P_s)\cdot(s_A-s_B)}{(T_s\cdot(1+2s_A)+T_a)(T_s\cdot(1+2s_B)+T_a)},
 	\label{eq:2}
 \end{equation}
-where we replaced $T_{gA}$ and $T_{gB}$ with its respective definition. We can
-now observe that $DC=T_a/(T_a + T_s)$ is the duty cycle of the system, and if
-we assume that $s_A, s_B << 1$, we get
+where we replaced $T_{gA}$ and $T_{gB}$ with its respective definition. By definition, 
+the duty cycle of the system is $DC=T_a/(T_a + T_s)$. Since clock stability is fairly low 
+(usually measured in $ppm$), we can assume that $s_A, s_B << 1$. The relations are then 
+simplified to
 \begin{equation}
 	P_{cB} < 2 \cdot [1-DC]^2\cdot (P_a-P_s) \cdot (s_A-s_B).
 \end{equation}
